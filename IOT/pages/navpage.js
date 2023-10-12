@@ -37,7 +37,7 @@ export default function NavPage() {
                 top: 5,
               }}>
               <Image
-                source={require('../Assets/Feed.png')}
+                source={require('../assets/profile.png')}
                 resizeMode="contain"
                 style={{
                   width: 35,
@@ -57,7 +57,7 @@ export default function NavPage() {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Stats"
         component={parkingLight}
         options={{
@@ -70,7 +70,7 @@ export default function NavPage() {
                 top: 5,
               }}>
               <Image
-                source={require('../Assets/My_Stats.png')}
+                source={require('../assets/profile.png')}
                 resizeMode="contain"
                 style={{
                   width: 35,
@@ -103,7 +103,7 @@ export default function NavPage() {
                 top: 5,
               }}>
               <Image
-                source={require('../Assets/pins.png')}
+                source={require('../assets/profile.png')}
                 resizeMode="contain"
                 style={{
                   width: 35,
@@ -136,7 +136,7 @@ export default function NavPage() {
                 top: 5,
               }}>
               <Image
-                source={require('../Assets/profile.png')}
+                source={require('../assets/profile.png')}
                 resizeMode="contain"
                 style={{
                   width: 35,
@@ -155,7 +155,7 @@ export default function NavPage() {
             </View>
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }
