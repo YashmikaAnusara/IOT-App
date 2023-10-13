@@ -7,12 +7,13 @@ export default function ParkingLight() {
   const mqttClient = '';
 
   MQTT.createClient({
-    uri: 'mqtt://192.168.1.3:1883',
+    uri: 'mqtt://192.168.1.14:1883',
     clientId: 'your_client_id',
   })
     .then(function (client) {
       client.on('connect', function () {
         console.log('connected');
+
         client.subscribe('Models/Detection/Green_LED', 0);
       });
       client.on('message', function (msg) {
