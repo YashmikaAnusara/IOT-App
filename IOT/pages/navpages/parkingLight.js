@@ -13,9 +13,12 @@ export default function ParkingLight() {
     .then(function (client) {
       client.on('connect', function () {
         console.log('connected');
-        client.subscribe('Models/Detection/Sensor', 0);
-        settest(client);
+        client.subscribe('Models/Detection/Type', 0);
       });
+      client.on('message', function (msg) {
+        console.log('mqtt.event.message', msg.data);
+      });
+
       client.connect();
     })
     .catch(function (err) {
