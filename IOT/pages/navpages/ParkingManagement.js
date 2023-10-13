@@ -2,7 +2,7 @@ import {View, Text} from 'react-native';
 import React, {useState} from 'react';
 import MQTT from 'sp-react-native-mqtt';
 
-export default function MotionLightDetection() {
+export default function ParkingManagement() {
   const [Type, setType] = useState('');
 
   MQTT.createClient({
@@ -13,7 +13,7 @@ export default function MotionLightDetection() {
       client.on('connect', function () {
         console.log('connected');
 
-        client.subscribe('Models/Detection/Green_LED', 0);
+        // client.subscribe('Models/Detection/Green_LED', 0);
       });
       client.on('message', function (msg) {
         console.log(msg.data);
@@ -28,8 +28,7 @@ export default function MotionLightDetection() {
 
   return (
     <View>
-      <Text>Motion Light Detection</Text>
-      <Text>{Type}</Text>
+      <Text>Parking Management</Text>
     </View>
   );
 }

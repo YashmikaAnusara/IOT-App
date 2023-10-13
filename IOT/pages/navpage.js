@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import MotionLightDetection from './navpages/MotionLightDetection';
+import ParkingManagement from './navpages/ParkingManagement';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +27,7 @@ export default function NavPage() {
       }}>
       <Tab.Screen
         name="ParkingManagement"
-        component={MotionLightDetection}
+        component={ParkingManagement}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
