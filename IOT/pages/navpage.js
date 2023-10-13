@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import parkingLight from './navpages/parkingLight';
+import VehicleParkingLight from './navpages/parkingLight';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,7 +12,7 @@ export default function NavPage() {
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
-          //   display: 'flex',
+          display: 'flex',
           position: 'absolute',
           bottom: 15,
           left: 20,
@@ -25,8 +25,8 @@ export default function NavPage() {
         },
       }}>
       <Tab.Screen
-        name="Feed"
-        component={parkingLight}
+        name="ParkingManagement"
+        component={VehicleParkingLight}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -49,17 +49,17 @@ export default function NavPage() {
                 style={{
                   color: 'black',
                   fontSize: 12,
-                  //   textAlign:'center'
+                  textAlign: 'center',
                 }}>
-                My Feed
+                Parking Management
               </Text>
             </View>
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="Stats"
-        component={parkingLight}
+      <Tab.Screen
+        name="MotionLightDetection"
+        component={VehicleParkingLight}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -82,9 +82,9 @@ export default function NavPage() {
                 style={{
                   color: 'black',
                   fontSize: 12,
-                  //   textAlign:'center'
+                  textAlign: 'center',
                 }}>
-                My Stats
+                Motion Light Detection
               </Text>
             </View>
           ),
@@ -92,7 +92,7 @@ export default function NavPage() {
       />
       <Tab.Screen
         name="Pins"
-        component={parkingLight}
+        component={VehicleParkingLight}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -115,9 +115,9 @@ export default function NavPage() {
                 style={{
                   color: 'black',
                   fontSize: 12,
-                  //   textAlign:'center'
+                  textAlign: 'center',
                 }}>
-                My Pins
+                Fire Detection & Notification
               </Text>
             </View>
           ),
@@ -125,7 +125,7 @@ export default function NavPage() {
       />
       <Tab.Screen
         name="Profile"
-        component={parkingLight}
+        component={VehicleParkingLight}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -148,14 +148,14 @@ export default function NavPage() {
                 style={{
                   color: 'black',
                   fontSize: 12,
-                  //   textAlign:'center'
+                  textAlign: 'center',
                 }}>
-                My Profile
+                IDK
               </Text>
             </View>
           ),
         }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 }

@@ -2,9 +2,8 @@ import {View, Text} from 'react-native';
 import React, {useState} from 'react';
 import MQTT from 'sp-react-native-mqtt';
 
-export default function ParkingLight() {
+export default function VehicleParkingLight() {
   const [Type, setType] = useState('');
-  const mqttClient = '';
 
   MQTT.createClient({
     uri: 'mqtt://192.168.1.14:1883',
