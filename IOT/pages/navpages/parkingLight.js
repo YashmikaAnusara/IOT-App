@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import MQTT from 'sp-react-native-mqtt';
 
 export default function ParkingLight() {
-  const [test, settest] = useState(null);
+  const [Type, setType] = useState('');
   const mqttClient = '';
 
   MQTT.createClient({
@@ -11,15 +11,16 @@ export default function ParkingLight() {
     clientId: 'your_client_id',
   })
     .then(function (client) {
- 
       client.on('connect', function () {
         console.log('connected');
-        client.subscribe('esp32/distance', 0);
+
+        client.subscribe('Models/Detection/Green_LED', 0);
       });
-      client.on('message', function(msg) {
-        console.log('mqtt.event.message', msg.data);
+      client.on('message', function (msg) {
+        console.log(msg.data);
+        setType(msg.data);
       });
-     
+
       client.connect();
     })
     .catch(function (err) {
@@ -29,6 +30,7 @@ export default function ParkingLight() {
   return (
     <View>
       <Text>parkingLight</Text>
+      <Text>{Type}</Text>
     </View>
   );
 }
