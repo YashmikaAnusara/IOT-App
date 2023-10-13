@@ -43,14 +43,14 @@ export default function NavPage() {
                 style={{
                   width: 35,
                   height: 35,
-                  // tintColor: focused ? '#5DB075' : '#3C3C43',
                 }}
               />
               <Text
                 style={{
-                  color: 'black',
                   fontSize: 12,
                   textAlign: 'center',
+                  color: focused ? '#5DB075' : '#3C3C43',
+                  fontWeight: focused ? 'bold' : 'normal',
                 }}>
                 Parking Management
               </Text>
@@ -76,7 +76,6 @@ export default function NavPage() {
                 style={{
                   width: 35,
                   height: 35,
-                  // tintColor: focused ? '#5DB075' : '#3C3C43',
                 }}
               />
               <Text
@@ -84,6 +83,8 @@ export default function NavPage() {
                   color: 'black',
                   fontSize: 12,
                   textAlign: 'center',
+                  color: focused ? '#5DB075' : '#3C3C43',
+                  fontWeight: focused ? 'bold' : 'normal',
                 }}>
                 Motion Light Detection
               </Text>
@@ -109,7 +110,6 @@ export default function NavPage() {
                 style={{
                   width: 35,
                   height: 35,
-                  // tintColor: focused ? '#5DB075' : '#3C3C43',
                 }}
               />
               <Text
@@ -117,6 +117,8 @@ export default function NavPage() {
                   color: 'black',
                   fontSize: 12,
                   textAlign: 'center',
+                  color: focused ? '#5DB075' : '#3C3C43',
+                  fontWeight: focused ? 'bold' : 'normal',
                 }}>
                 Fire Detection & Notification
               </Text>
@@ -142,7 +144,6 @@ export default function NavPage() {
                 style={{
                   width: 35,
                   height: 35,
-                  // tintColor: focused ? '#5DB075' : '#3C3C43',
                 }}
               />
               <Text
@@ -150,6 +151,8 @@ export default function NavPage() {
                   color: 'black',
                   fontSize: 12,
                   textAlign: 'center',
+                  color: focused ? '#5DB075' : '#3C3C43',
+                  fontWeight: focused ? 'bold' : 'normal',
                 }}>
                 IDK
               </Text>
