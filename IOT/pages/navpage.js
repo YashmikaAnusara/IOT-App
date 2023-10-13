@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import VehicleParkingLight from './navpages/parkingLight';
+import MotionLightDetection from './navpages/MotionLightDetection';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +26,7 @@ export default function NavPage() {
       }}>
       <Tab.Screen
         name="ParkingManagement"
-        component={VehicleParkingLight}
+        component={MotionLightDetection}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -37,12 +37,12 @@ export default function NavPage() {
                 top: 5,
               }}>
               <Image
-                source={require('../assets/profile.png')}
+                source={require('../assets/parking-lot.png')}
                 resizeMode="contain"
                 style={{
                   width: 35,
                   height: 35,
-                  tintColor: focused ? '#5DB075' : '#3C3C43',
+                  // tintColor: focused ? '#5DB075' : '#3C3C43',
                 }}
               />
               <Text
@@ -59,7 +59,7 @@ export default function NavPage() {
       />
       <Tab.Screen
         name="MotionLightDetection"
-        component={VehicleParkingLight}
+        component={MotionLightDetection}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -70,12 +70,12 @@ export default function NavPage() {
                 top: 5,
               }}>
               <Image
-                source={require('../assets/profile.png')}
+                source={require('../assets/lightning.png')}
                 resizeMode="contain"
                 style={{
                   width: 35,
                   height: 35,
-                  tintColor: focused ? '#5DB075' : '#3C3C43',
+                  // tintColor: focused ? '#5DB075' : '#3C3C43',
                 }}
               />
               <Text
@@ -92,7 +92,7 @@ export default function NavPage() {
       />
       <Tab.Screen
         name="Pins"
-        component={VehicleParkingLight}
+        component={MotionLightDetection}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -103,12 +103,12 @@ export default function NavPage() {
                 top: 5,
               }}>
               <Image
-                source={require('../assets/profile.png')}
+                source={require('../assets/fire.png')}
                 resizeMode="contain"
                 style={{
                   width: 35,
                   height: 35,
-                  tintColor: focused ? '#5DB075' : '#3C3C43',
+                  // tintColor: focused ? '#5DB075' : '#3C3C43',
                 }}
               />
               <Text
@@ -125,7 +125,7 @@ export default function NavPage() {
       />
       <Tab.Screen
         name="Profile"
-        component={VehicleParkingLight}
+        component={MotionLightDetection}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -136,12 +136,12 @@ export default function NavPage() {
                 top: 5,
               }}>
               <Image
-                source={require('../assets/profile.png')}
+                source={require('../assets/map.png')}
                 resizeMode="contain"
                 style={{
                   width: 35,
                   height: 35,
-                  tintColor: focused ? '#5DB075' : '#3C3C43',
+                  // tintColor: focused ? '#5DB075' : '#3C3C43',
                 }}
               />
               <Text
