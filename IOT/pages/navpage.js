@@ -4,6 +4,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import MotionLightDetection from './navpages/MotionLightDetection';
 import ParkingManagement from './navpages/ParkingManagement';
+import FireDetectionNotification from './navpages/FireDetection&Notification';
 
 const Tab = createBottomTabNavigator();
 
@@ -93,8 +94,8 @@ export default function NavPage() {
         }}
       />
       <Tab.Screen
-        name="Pins"
-        component={MotionLightDetection}
+        name="FireDetectionNotification"
+        component={FireDetectionNotification}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
