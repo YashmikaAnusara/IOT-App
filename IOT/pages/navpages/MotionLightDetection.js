@@ -5,13 +5,21 @@ import {
   Text,
   View,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MQTT from 'sp-react-native-mqtt';
 import Header from '../../component/header';
+const Person = require('../../assets/person.png');
+const Car = require('../../assets/car.png');
+const None = require('../../assets/none.png');
+const PIR_ON = require('../../assets/pir-on.png');
+const PIR_OFF = require('../../assets/pir-off.png');
+const LIGHT_ON = require('../../assets/light-on.png');
+const LIGHT_OFF = require('../../assets/light-off.png');
 
 export default function MotionLightDetection() {
-  const [Detection, setDetection] = useState('');
+  const [Detection, setDetection] = useState('None');
   const [Sensor, setSensor] = useState('');
   const [Lights, setLights] = useState('');
 
@@ -58,11 +66,54 @@ export default function MotionLightDetection() {
               <TouchableOpacity style={styles.card}>
                 <View>
                   <Text style={styles.cardTitle}>Detection</Text>
+
+                  {Detection === 'person' ? (
+                    <>
+                      <ImageBackground
+                        source={Person}
+                        style={styles.cardImageDetection}
+                      />
+                      <Text style={styles.cardSecondTitle}>{Detection}</Text>
+                    </>
+                  ) : Detection === 'car' ? (
+                    <>
+                      <ImageBackground
+                        source={Car}
+                        style={styles.cardImageDetection}
+                      />
+                      <Text style={styles.cardSecondTitle}>{Detection}</Text>
+                    </>
+                  ) : (
+                    <>
+                      <ImageBackground
+                        source={None}
+                        style={styles.cardImageDetection}
+                      />
+                      <Text style={styles.cardSecondTitle}>{Detection}</Text>
+                    </>
+                  )}
                 </View>
               </TouchableOpacity>
               <TouchableOpacity style={styles.card}>
                 <View>
                   <Text style={styles.cardTitle}>Sensor</Text>
+                  {Sensor === 'On' ? (
+                    <>
+                      <ImageBackground
+                        source={PIR_ON}
+                        style={styles.cardImageSensor}
+                      />
+                      <Text style={styles.cardSecondTitle}>{Sensor}</Text>
+                    </>
+                  ) : Sensor === 'Off' ? (
+                    <>
+                      <ImageBackground
+                        source={PIR_OFF}
+                        style={styles.cardImageSensor}
+                      />
+                      <Text style={styles.cardSecondTitle}>{Sensor}</Text>
+                    </>
+                  ) : null}
                 </View>
               </TouchableOpacity>
             </View>
@@ -70,14 +121,29 @@ export default function MotionLightDetection() {
               <TouchableOpacity style={styles.BottomCard}>
                 <View>
                   <Text style={styles.cardTitle}>Lights</Text>
+                  <View style={styles.lightCardContainer}>
+                    {Lights === 'On' ? (
+                      <>
+                        <ImageBackground
+                          source={LIGHT_ON}
+                          style={styles.cardImageSensor}
+                        />
+                        <Text style={styles.cardSecondTitle}>{Lights}</Text>
+                      </>
+                    ) : Lights === 'Off' ? (
+                      <>
+                        <ImageBackground
+                          source={LIGHT_OFF}
+                          style={styles.cardImageSensor}
+                        />
+                        <Text style={styles.cardSecondTitle}>{Lights}</Text>
+                      </>
+                    ) : null}
+                  </View>
                 </View>
               </TouchableOpacity>
             </View>
           </View>
-          <Text>Motion Light Detection</Text>
-          <Text>Detection : {Detection}</Text>
-          <Text>Sensor :{Sensor}</Text>
-          <Text>Lights :{Lights}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -113,6 +179,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '700',
     color: '#fff',
+    textAlign: 'center',
   },
   secondBottomContainer: {
     flexDirection: 'row',
@@ -129,5 +196,27 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     alignItems: 'center',
+  },
+  cardImageDetection: {
+    top: 5,
+    height: 135,
+    // bottom: 43,
+    // alignSelf: 'flex-end',
+  },
+  cardImageSensor: {
+    top: 5,
+    height: 135,
+    width: 135,
+    // alignSelf: 'flex-end',
+  },
+  cardSecondTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#fff',
+    alignSelf: 'center',
+  },
+  lightCardContainer: {
+    display: 'flex',
+    alignItems: 'stretch',
   },
 });
