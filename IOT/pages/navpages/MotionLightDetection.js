@@ -1,4 +1,11 @@
-import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MQTT from 'sp-react-native-mqtt';
 import Header from '../../component/header';
@@ -46,6 +53,27 @@ export default function MotionLightDetection() {
       <ScrollView>
         <View style={styles.screenContainer}>
           <Header />
+          <View style={styles.bottomContainer}>
+            <View style={styles.firstBottomContainer}>
+              <TouchableOpacity style={styles.card}>
+                <View>
+                  <Text style={styles.cardTitle}>Detection</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.card}>
+                <View>
+                  <Text style={styles.cardTitle}>Sensor</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.secondBottomContainer}>
+              <TouchableOpacity style={styles.BottomCard}>
+                <View>
+                  <Text style={styles.cardTitle}>Lights</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
           <Text>Motion Light Detection</Text>
           <Text>Detection : {Detection}</Text>
           <Text>Sensor :{Sensor}</Text>
@@ -60,5 +88,46 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     padding: 10,
+  },
+  bottomContainer: {
+    padding: 1,
+    paddingTop: 20,
+  },
+  firstBottomContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    gap: 10,
+    paddingTop: 20,
+  },
+  card: {
+    height: 180,
+    width: '48%',
+    backgroundColor: '#f18484',
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    alignItems: 'center',
+  },
+  cardTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#fff',
+  },
+  secondBottomContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    gap: 10,
+    paddingTop: 10,
+  },
+  BottomCard: {
+    height: 180,
+    width: '98%',
+    backgroundColor: '#f18484',
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    alignItems: 'center',
   },
 });
