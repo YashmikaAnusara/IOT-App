@@ -3,12 +3,13 @@ import React, {useState, useEffect} from 'react';
 import MQTT from 'sp-react-native-mqtt';
 
 export default function MotionLightDetection() {
-  const [Type, setType] = useState('');
-  const [Type1, setType1] = useState('');
+  const [Detection, setDetection] = useState('');
+  const [Sensor, setSensor] = useState('');
+  const [Lights, setLights] = useState('');
 
   useEffect(() => {
     MQTT.createClient({
-      uri: 'mqtt://192.168.199.16:1883',
+      uri: 'mqtt://192.168.1.3:1883',
       clientId: 'your_client_id_1',
     })
       .then(function (client1) {
@@ -18,13 +19,17 @@ export default function MotionLightDetection() {
 
           client1.subscribe('Models/Detection/Type', 0);
           client1.subscribe('Models/Detection/Sensor', 0);
+          client1.subscribe('Models/Detection/Green_LED', 0);
         });
         client1.on('message', function (msg) {
           if (msg.topic == 'Models/Detection/Type') {
-            console.log('Switch called:', msg.data);
+            setDetection(msg.data);
           }
           if (msg.topic == 'Models/Detection/Sensor') {
-            console.log('human: ', msg.data);
+            setSensor(msg.data);
+          }
+          if (msg.topic == 'Models/Detection/Green_LED') {
+            setLights(msg.data);
           }
         });
 
@@ -38,8 +43,9 @@ export default function MotionLightDetection() {
   return (
     <View>
       <Text>Motion Light Detection</Text>
-      <Text>{Type}</Text>
-      <Text>{Type1}</Text>
+      <Text>Detection : {Detection}</Text>
+      <Text>Sensor :{Sensor}</Text>
+      <Text>Lights :{Lights}</Text>
     </View>
   );
 }
