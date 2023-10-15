@@ -1,6 +1,7 @@
-import {View, Text} from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MQTT from 'sp-react-native-mqtt';
+import Header from '../../component/header';
 
 export default function MotionLightDetection() {
   const [Detection, setDetection] = useState('');
@@ -41,11 +42,23 @@ export default function MotionLightDetection() {
   }, []);
 
   return (
-    <View>
-      <Text>Motion Light Detection</Text>
-      <Text>Detection : {Detection}</Text>
-      <Text>Sensor :{Sensor}</Text>
-      <Text>Lights :{Lights}</Text>
-    </View>
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.screenContainer}>
+          <Header />
+          <Text>Motion Light Detection</Text>
+          <Text>Detection : {Detection}</Text>
+          <Text>Sensor :{Sensor}</Text>
+          <Text>Lights :{Lights}</Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+    padding: 10,
+  },
+});
