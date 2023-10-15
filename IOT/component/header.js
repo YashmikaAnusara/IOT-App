@@ -11,7 +11,7 @@ const ProfilePic = require('../assets/profile-pic.png');
 export default function Header() {
   return (
     <View style={styles.topContainer}>
-      <Text style={styles.welcomeTopic}>Hi, Username!</Text>
+      <Text style={styles.welcomeTopic}>Welcome, EcoPark!</Text>
       <TouchableOpacity>
         <ImageBackground source={ProfilePic} style={styles.profileImage} />
       </TouchableOpacity>
