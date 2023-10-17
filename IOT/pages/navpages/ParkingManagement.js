@@ -1,11 +1,17 @@
-import {SafeAreaView, ScrollView, StyleSheet, Text, View, Button, ImageBackground, TouchableOpacity, TouchableHighlight} from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MQTT from 'sp-react-native-mqtt';
 import Header from '../../component/header';
-import { Card } from '@rneui/themed';
-import { CardTitle } from '@rneui/base/dist/Card/Card.Title';
-const  hmdity = require('../../assets/hmdity.png');
-const Car = require('../../assets/car.png');
+const hmdity = require('../../assets/hmdity.png');
+const hmdity_W = require('../../assets/hmdity-w.png');
 const LIGHT_ON = require('../../assets/light-on.png');
 const LIGHT_OFF = require('../../assets/light-off.png');
 export default function ParkingManagement() {
@@ -14,42 +20,40 @@ export default function ParkingManagement() {
   const [distanceSensorSlot2, setSensorDistanceS2] = useState('');
   const [humidity, sethumidity] = useState('');
   const [lightS1, setLightS1] = useState(0);
-  const lightsOn = ()=>{
+  const lightsOn = () => {
     MQTT.createClient({
       uri: 'mqtt://192.168.234.215:1883',
       clientId: 'your_client_id',
     })
       .then(function (client) {
-   
         client.on('connect', function () {
           console.log('connected');
           client.publish('esp32/output', 'on', 0, true);
         });
-        client.on('message', function(msg) {
+        client.on('message', function (msg) {
           console.log('mqtt.event.message', msg.data);
         });
-       
+
         client.connect();
       })
       .catch(function (err) {
         console.log(err);
       });
   };
-  const lightsOff = ()=>{
+  const lightsOff = () => {
     MQTT.createClient({
       uri: 'mqtt://192.168.234.215:1883',
       clientId: 'your_client_id',
     })
       .then(function (client) {
-   
         client.on('connect', function () {
           console.log('connected');
           client.publish('esp32/output', 'off', 0, true);
         });
-        client.on('message', function(msg) {
+        client.on('message', function (msg) {
           console.log('mqtt.event.message', msg.data);
         });
-       
+
         client.connect();
       })
       .catch(function (err) {
@@ -87,7 +91,7 @@ export default function ParkingManagement() {
             sethumidity(msg.data);
           }
           if (msg.topic == 'Parking/lightSlot1') {
-            console.log("light"+msg.data);
+            console.log('light' + msg.data);
             setLightS1(msg.data);
           }
         });
@@ -104,132 +108,58 @@ export default function ParkingManagement() {
       <ScrollView>
         <View style={styles.screenContainer}>
           <Header />
-          <Text style={styles.pageMainTitle}>Parking Management</Text>
           <View style={styles.bottomContainer}>
             <View style={styles.firstBottomContainer}>
-            <Card style={styles.card}>
-            <View>
-            <Text style={styles.pageMainTitle}>Current Humidity</Text>
-            <ImageBackground source={hmdity} style={styles.cardParkImages} />
-            <Text style={styles.pageMainTitle}>{humidity} %</Text>
-            </View>
-          </Card>
-          <Card style={styles.card}>
-            <CardTitle>Parking Slots</CardTitle>
-            <View>
-            <Text>Slot 1 Status:{distanceSensorSlot1}</Text>
-          <Text>Slot 2 Status:{distanceSensorSlot2}</Text>
-            </View>
-          </Card>
+              <View style={styles.card}>
+                <View>
+                  <Text style={styles.pageMainTitle}>Current Humidity</Text>
+                  {humidity > 60 ? (
+                    <ImageBackground
+                      source={hmdity_W}
+                      style={styles.cardParkImages}
+                    />
+                  ) : (
+                    <ImageBackground
+                      source={hmdity}
+                      style={styles.cardParkImages}
+                    />
+                  )}
+                  <Text style={styles.pageMainTitle}>{humidity} %</Text>
+                </View>
               </View>
-              <View style={styles.secondBottomContainer}>
+              <View style={styles.card}>
+                <Text>Parking Slots</Text>
+                <View>
+                  <Text>Slot 1 Status:{distanceSensorSlot1}</Text>
+                  <Text>Slot 2 Status:{distanceSensorSlot2}</Text>
+                </View>
+              </View>
+            </View>
+            <View style={styles.secondBottomContainer}>
               <TouchableOpacity style={styles.BottomCard}>
                 <View>
                   <Text style={styles.cardTitle}>Light Slot 3</Text>
                   <View style={styles.lightCardContainer}>
                     {lightS1 !== '1' ? (
                       <TouchableOpacity onPress={lightsOn}>
-                      <ImageBackground
-                        source={LIGHT_OFF}
-                        style={styles.cardImageSensor}
-                      />
+                        <ImageBackground
+                          source={LIGHT_OFF}
+                          style={styles.cardImageSensor}
+                        />
                       </TouchableOpacity>
-                    ) : 
-                    <TouchableOpacity onPress={lightsOff}>
+                    ) : (
+                      <TouchableOpacity onPress={lightsOff}>
                         <ImageBackground
                           source={LIGHT_ON}
                           style={styles.cardImageSensor}
                         />
                       </TouchableOpacity>
-                      }
+                    )}
                   </View>
                 </View>
               </TouchableOpacity>
             </View>
-              </View>
-          {/* {lightS1!=='1'?<Button
-          title="Light Slot 01"
-          onPress={() => {
-            //   console.log(mqttClient);
-            // client.publish('esp32/output', 'on', 0, true);
-
-            MQTT.createClient({
-              uri: 'mqtt://192.168.234.215:1883',
-              clientId: 'your_client_id',
-            })
-              .then(function (client) {
-           
-                client.on('connect', function () {
-                  console.log('connected');
-                  client.publish('esp32/output', 'on', 0, true);
-                });
-                client.on('message', function(msg) {
-                  console.log('mqtt.event.message', msg.data);
-                });
-               
-                client.connect();
-              })
-              .catch(function (err) {
-                console.log(err);
-              });
-          }}
-        />:<Button
-        title="Light Slot 01 Off"
-        onPress={() => {
-          //   console.log(mqttClient);
-          // client.publish('esp32/output', 'on', 0, true);
-
-          MQTT.createClient({
-            uri: 'mqtt://192.168.234.215:1883',
-            clientId: 'your_client_id',
-          })
-            .then(function (client) {
-         
-              client.on('connect', function () {
-                console.log('connected');
-                client.publish('esp32/output', 'off', 0, true);
-              });
-              client.on('message', function(msg) {
-                console.log('mqtt.event.message', msg.data);
-              });
-             
-              client.connect();
-            })
-            .catch(function (err) {
-              console.log(err);
-            });
-        }}
-      />}
-           */}
-{/* 
-      <Button
-          title="Light Slot 2"
-          onPress={() => {
-            //   console.log(mqttClient);
-            // client.publish('esp32/output', 'on', 0, true);
-
-            MQTT.createClient({
-              uri: 'mqtt://192.168.234.215:1883',
-              clientId: 'your_client_id',
-            })
-              .then(function (client) {
-           
-                client.on('connect', function () {
-                  console.log('connected');
-                  client.publish('esp32/output', 'on', 0, true);
-                });
-                client.on('message', function(msg) {
-                  console.log('mqtt.event.message', msg.data);
-                });
-               
-                client.connect();
-              })
-              .catch(function (err) {
-                console.log(err);
-              });
-          }}
-        /> */}
-        {}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -243,7 +173,7 @@ const styles = StyleSheet.create({
   cardParkImages: {
     top: 5,
     height: 135,
-    // bottom: 43,
+    width: 135,
     // alignSelf: 'flex-end',
   },
   pageMainTitle: {
@@ -266,7 +196,7 @@ const styles = StyleSheet.create({
   },
   card: {
     height: 180,
-    width: '70%',
+    width: '48%',
     backgroundColor: '#f18484',
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
@@ -274,7 +204,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     alignItems: 'center',
   },
-    firstBottomContainer: {
+  firstBottomContainer: {
     flexDirection: 'row',
     width: '100%',
     gap: 10,
