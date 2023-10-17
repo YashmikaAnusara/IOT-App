@@ -2,7 +2,9 @@ import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import parkingLight from './navpages/parkingLight';
+import MotionLightDetection from './navpages/MotionLightDetection';
+import ParkingManagement from './navpages/ParkingManagement';
+import FireDetectionNotification from './navpages/FireDetection&Notification';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,7 +14,7 @@ export default function NavPage() {
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
-          //   display: 'flex',
+          display: 'flex',
           position: 'absolute',
           bottom: 15,
           left: 20,
@@ -25,8 +27,8 @@ export default function NavPage() {
         },
       }}>
       <Tab.Screen
-        name="Feed"
-        component={parkingLight}
+        name="ParkingManagement"
+        component={ParkingManagement}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -37,62 +39,29 @@ export default function NavPage() {
                 top: 5,
               }}>
               <Image
-                source={require('../assets/profile.png')}
+                source={require('../assets/parking-lot.png')}
                 resizeMode="contain"
                 style={{
                   width: 35,
                   height: 35,
-                  tintColor: focused ? '#5DB075' : '#3C3C43',
                 }}
               />
               <Text
                 style={{
-                  color: 'black',
                   fontSize: 12,
-                  //   textAlign:'center'
+                  textAlign: 'center',
+                  color: focused ? '#5DB075' : '#3C3C43',
+                  fontWeight: focused ? 'bold' : 'normal',
                 }}>
-                My Feed
-              </Text>
-            </View>
-          ),
-        }}
-      />
-      {/* <Tab.Screen
-        name="Stats"
-        component={parkingLight}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({focused}) => (
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                top: 5,
-              }}>
-              <Image
-                source={require('../assets/profile.png')}
-                resizeMode="contain"
-                style={{
-                  width: 35,
-                  height: 35,
-                  tintColor: focused ? '#5DB075' : '#3C3C43',
-                }}
-              />
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 12,
-                  //   textAlign:'center'
-                }}>
-                My Stats
+                Parking Management
               </Text>
             </View>
           ),
         }}
       />
       <Tab.Screen
-        name="Pins"
-        component={parkingLight}
+        name="MotionLightDetection"
+        component={MotionLightDetection}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -103,21 +72,56 @@ export default function NavPage() {
                 top: 5,
               }}>
               <Image
-                source={require('../assets/profile.png')}
+                source={require('../assets/lightning.png')}
                 resizeMode="contain"
                 style={{
                   width: 35,
                   height: 35,
-                  tintColor: focused ? '#5DB075' : '#3C3C43',
                 }}
               />
               <Text
                 style={{
                   color: 'black',
                   fontSize: 12,
-                  //   textAlign:'center'
+                  textAlign: 'center',
+                  color: focused ? '#5DB075' : '#3C3C43',
+                  fontWeight: focused ? 'bold' : 'normal',
                 }}>
-                My Pins
+                Motion Light Detection
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="FireDetectionNotification"
+        component={FireDetectionNotification}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({focused}) => (
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                top: 5,
+              }}>
+              <Image
+                source={require('../assets/fire.png')}
+                resizeMode="contain"
+                style={{
+                  width: 35,
+                  height: 35,
+                }}
+              />
+              <Text
+                style={{
+                  color: 'black',
+                  fontSize: 12,
+                  textAlign: 'center',
+                  color: focused ? '#5DB075' : '#3C3C43',
+                  fontWeight: focused ? 'bold' : 'normal',
+                }}>
+                Fire Detection & Notification
               </Text>
             </View>
           ),
@@ -125,7 +129,7 @@ export default function NavPage() {
       />
       <Tab.Screen
         name="Profile"
-        component={parkingLight}
+        component={MotionLightDetection}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -136,26 +140,27 @@ export default function NavPage() {
                 top: 5,
               }}>
               <Image
-                source={require('../assets/profile.png')}
+                source={require('../assets/map.png')}
                 resizeMode="contain"
                 style={{
                   width: 35,
                   height: 35,
-                  tintColor: focused ? '#5DB075' : '#3C3C43',
                 }}
               />
               <Text
                 style={{
                   color: 'black',
                   fontSize: 12,
-                  //   textAlign:'center'
+                  textAlign: 'center',
+                  color: focused ? '#5DB075' : '#3C3C43',
+                  fontWeight: focused ? 'bold' : 'normal',
                 }}>
-                My Profile
+                IDK
               </Text>
             </View>
           ),
         }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 }
