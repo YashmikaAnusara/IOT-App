@@ -14,8 +14,8 @@ const parked = require('../../assets/parked.png');
 const empty = require('../../assets/empty.png');
 
 export default function ParkingNavigation() {
-  const [ParkingSlot1, setParkingSlot1] = useState('on');
-  const [ParkingSlot2, setParkingSlot2] = useState('off');
+  const [ParkingSlot1, setParkingSlot1] = useState('off');
+  const [ParkingSlot2, setParkingSlot2] = useState('on');
 
   const [S1, setS1] = useState(false);
   const [S2, setS2] = useState(false);
