@@ -17,6 +17,9 @@ export default function ParkingNavigation() {
   const [ParkingSlot1, setParkingSlot1] = useState('on');
   const [ParkingSlot2, setParkingSlot2] = useState('off');
 
+  const [S1, setS1] = useState(false);
+  const [S2, setS2] = useState(false);
+
   useEffect(() => {
     MQTT.createClient({
       uri: 'mqtt://192.168.1.3:1883',
@@ -48,6 +51,14 @@ export default function ParkingNavigation() {
       });
   }, []);
 
+  const Direction_1 = () => {
+    setS1(true);
+    setS2(false);
+  };
+  const Direction_2 = () => {
+    setS1(false);
+    setS2(true);
+  };
   return (
     <SafeAreaView>
       <ScrollView>
@@ -55,53 +66,80 @@ export default function ParkingNavigation() {
           <Header />
           <View style={styles.bottomContainer}>
             <View style={styles.firstBottomContainer}>
-              <TouchableOpacity style={styles.card}>
-                <View>
-                  <Text style={styles.cardTitle}>Parking Slot 1</Text>
+              {ParkingSlot1 === 'on' ? (
+                <TouchableOpacity style={styles.card} onPress={Direction_1}>
+                  <View>
+                    <Text style={styles.cardTitle}>Parking Slot 1</Text>
+                    <ImageBackground
+                      on
+                      source={parked}
+                      style={styles.cardImageDetection}
+                    />
+                    <Text style={styles.cardSecondTitle}>{ParkingSlot1}</Text>
+                  </View>
+                </TouchableOpacity>
+              ) : ParkingSlot1 === 'off' ? (
+                <TouchableOpacity style={styles.card}>
+                  <View>
+                    <Text style={styles.cardTitle}>Parking Slot 1</Text>
+                    <ImageBackground
+                      source={empty}
+                      style={styles.cardImageDetection}
+                    />
+                    <Text style={styles.cardSecondTitle}>{ParkingSlot1}</Text>
+                  </View>
+                </TouchableOpacity>
+              ) : null}
 
-                  {ParkingSlot1 === 'on' ? (
-                    <>
-                      <ImageBackground
-                        source={parked}
-                        style={styles.cardImageDetection}
-                      />
-                      <Text style={styles.cardSecondTitle}>{ParkingSlot1}</Text>
-                    </>
-                  ) : ParkingSlot1 === 'off' ? (
-                    <>
-                      <ImageBackground
-                        source={empty}
-                        style={styles.cardImageDetection}
-                      />
-                      <Text style={styles.cardSecondTitle}>{ParkingSlot1}</Text>
-                    </>
-                  ) : null}
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.card}>
-                <View>
+              {ParkingSlot2 === 'on' ? (
+                <TouchableOpacity style={styles.card} onPress={Direction_2}>
+                  <View>
+                    <Text style={styles.cardTitle}>Parking Slot 2</Text>
+                    <ImageBackground
+                      source={parked}
+                      style={styles.cardImageDetection}
+                    />
+                    <Text style={styles.cardSecondTitle}>{ParkingSlot2}</Text>
+                  </View>
+                </TouchableOpacity>
+              ) : ParkingSlot2 === 'off' ? (
+                <TouchableOpacity style={styles.card}>
                   <Text style={styles.cardTitle}>Parking Slot 2</Text>
-                  {ParkingSlot2 === 'on' ? (
-                    <>
-                      <ImageBackground
-                        source={parked}
-                        style={styles.cardImageDetection}
-                      />
-                      <Text style={styles.cardSecondTitle}>{ParkingSlot2}</Text>
-                    </>
-                  ) : ParkingSlot2 === 'off' ? (
-                    <>
-                      <ImageBackground
-                        source={empty}
-                        style={styles.cardImageDetection}
-                      />
-                      <Text style={styles.cardSecondTitle}>{ParkingSlot2}</Text>
-                    </>
-                  ) : null}
-                </View>
-              </TouchableOpacity>
+                  <View>
+                    <ImageBackground
+                      source={empty}
+                      style={styles.cardImageDetection}
+                    />
+                    <Text style={styles.cardSecondTitle}>{ParkingSlot2}</Text>
+                  </View>
+                </TouchableOpacity>
+              ) : null}
             </View>
-            <Text>ddfdsfdsfdsfdsfsdfds</Text>
+            <View style={styles.secondBottomContainer}>
+              {S1 === true ? (
+                <TouchableOpacity style={styles.BottomCard}>
+                  <View>
+                    <Text style={styles.cardTitle}>
+                      Parking Slot 1 Direction
+                    </Text>
+                    <View style={styles.lightCardContainer}>
+                      <Text style={styles.paddingDirection}>sdsdssdsw</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ) : S2 === true ? (
+                <TouchableOpacity style={styles.BottomCard}>
+                  <View>
+                    <Text style={styles.cardTitle}>
+                      Parking Slot 2 Direction
+                    </Text>
+                    <View style={styles.lightCardContainer}>
+                      <Text style={styles.paddingDirection}>sdsdssdsw</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ) : null}
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -147,7 +185,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   BottomCard: {
-    height: 180,
+    height: 280,
     width: '98%',
     backgroundColor: '#f18484',
     borderBottomRightRadius: 20,
@@ -177,5 +215,11 @@ const styles = StyleSheet.create({
   lightCardContainer: {
     display: 'flex',
     alignItems: 'stretch',
+    top: 10,
+  },
+  paddingDirection: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
   },
 });
