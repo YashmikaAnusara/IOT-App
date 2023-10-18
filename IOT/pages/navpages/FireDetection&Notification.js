@@ -6,7 +6,6 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
-  Alert,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MQTT from 'sp-react-native-mqtt';
