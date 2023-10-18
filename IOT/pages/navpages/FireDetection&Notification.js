@@ -6,19 +6,24 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
+  Alert,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MQTT from 'sp-react-native-mqtt';
 import Header from '../../component/header';
 const Heat = require('../../assets/heat.png');
 const Cool = require('../../assets/cool.png');
+const Alarm_off = require('../../assets/Alarm_off.png');
+const Alarm_on = require('../../assets/Alarm.png');
 
 export default function FireDetectionNotification() {
   const [Flame, setFlame] = useState('');
   const [Gas, setGas] = useState('');
   const [Temperature, setTemperature] = useState('');
-  const [Alarm, setAlarm] = useState('');
-  const [Slot_Notification, setSlot_Notification] = useState('');
+  const [Alarm, setAlarm] = useState('Alarm Deactivated!');
+  const [Slot_Notification, setSlot_Notification] = useState(
+    'P1 & P2 & P3 Warning.',
+  );
 
   useEffect(() => {
     MQTT.createClient({
@@ -51,6 +56,7 @@ export default function FireDetectionNotification() {
           }
           if (msg.topic == 'Models/Detection/Slot Notification') {
             setSlot_Notification(msg.data);
+            setAlert();
           }
         });
 
@@ -91,54 +97,57 @@ export default function FireDetectionNotification() {
                   ) : null}
                 </View>
               </TouchableOpacity>
-              {/* <TouchableOpacity style={styles.card}>
+              <TouchableOpacity style={styles.card}>
                 <View>
-                  <Text style={styles.cardTitle}>Sensor</Text>
-                  {Sensor === 'On' ? (
+                  <Text style={styles.cardTitle}>Alarm</Text>
+                  {Alarm === 'Alarm Activated!' ? (
                     <>
                       <ImageBackground
-                        source={PIR_ON}
+                        source={Alarm_on}
                         style={styles.cardImageSensor}
                       />
-                      <Text style={styles.cardSecondTitle}>{Sensor}</Text>
+                      <Text style={styles.cardSecondTitle}>{Alarm}</Text>
                     </>
-                  ) : Sensor === 'Off' ? (
+                  ) : Alarm === 'Alarm Deactivated!' ? (
                     <>
                       <ImageBackground
-                        source={PIR_OFF}
+                        source={Alarm_off}
                         style={styles.cardImageSensor}
                       />
-                      <Text style={styles.cardSecondTitle}>{Sensor}</Text>
+                      <Text style={styles.cardSecondTitle}>{Alarm}</Text>
                     </>
                   ) : null}
                 </View>
               </TouchableOpacity>
             </View>
             <View style={styles.secondBottomContainer}>
-              <TouchableOpacity style={styles.BottomCard}>
-                <View>
-                  <Text style={styles.cardTitle}>Lights</Text>
-                  <View style={styles.lightCardContainer}>
-                    {Lights === 'On' ? (
-                      <>
-                        <ImageBackground
-                          source={LIGHT_ON}
-                          style={styles.cardImageSensor}
-                        />
-                        <Text style={styles.cardSecondTitle}>{Lights}</Text>
-                      </>
-                    ) : Lights === 'Off' ? (
-                      <>
-                        <ImageBackground
-                          source={LIGHT_OFF}
-                          style={styles.cardImageSensor}
-                        />
-                        <Text style={styles.cardSecondTitle}>{Lights}</Text>
-                      </>
-                    ) : null}
-                  </View>
-                </View>
-              </TouchableOpacity> */}
+              {Alarm === 'Alarm Activated!' ? (
+                <>
+                  <TouchableOpacity style={styles.BottomCard}>
+                    <View>
+                      <Text style={styles.cardTitle}>Alert</Text>
+                      <View style={styles.lightCardContainer}>
+                        <Text style={styles.cardSecondTitle}>
+                          {Slot_Notification}
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </>
+              ) : Alarm === 'Alarm Deactivated!' ? (
+                <>
+                  <TouchableOpacity style={styles.BottomCard_no_Alert}>
+                    <View>
+                      <Text style={styles.cardTitle}>Alert</Text>
+                      <View style={styles.lightCardContainer}>
+                        <Text style={styles.cardSecondTitle}>
+                          {Slot_Notification}
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </>
+              ) : null}
             </View>
           </View>
         </View>
@@ -184,14 +193,26 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   BottomCard: {
-    height: 180,
+    height: 80,
     width: '98%',
-    backgroundColor: '#f18484',
+    backgroundColor: '#c0172a',
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     alignItems: 'center',
+    paddingTop: 15,
+  },
+  BottomCard_no_Alert: {
+    height: 80,
+    width: '98%',
+    backgroundColor: '#0B6623',
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    alignItems: 'center',
+    paddingTop: 15,
   },
   cardImageDetection: {
     top: 3,
