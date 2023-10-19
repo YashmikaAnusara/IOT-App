@@ -117,7 +117,15 @@ export default function MotionLightDetection() {
                       />
                       <Text style={styles.cardSecondTitle}>{Sensor}</Text>
                     </>
-                  ) : null}
+                  ) : (
+                    <>
+                      <ImageBackground
+                        source={None}
+                        style={styles.cardImageDetection}
+                      />
+                      <Text style={styles.cardSecondTitle}>{Detection}</Text>
+                    </>
+                  )}
                 </View>
               </TouchableOpacity>
             </View>
@@ -142,7 +150,15 @@ export default function MotionLightDetection() {
                         />
                         <Text style={styles.cardSecondTitle}>{Lights}</Text>
                       </>
-                    ) : null}
+                    ) : (
+                      <>
+                        <ImageBackground
+                          source={None}
+                          style={styles.cardImageDetection}
+                        />
+                        <Text style={styles.cardSecondTitle}>{Detection}</Text>
+                      </>
+                    )}
                   </View>
                 </View>
               </TouchableOpacity>

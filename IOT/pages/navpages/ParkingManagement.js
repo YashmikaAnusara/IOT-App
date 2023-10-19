@@ -20,6 +20,7 @@ export default function ParkingManagement() {
   const [distanceSensorSlot2, setSensorDistanceS2] = useState('');
   const [humidity, sethumidity] = useState('');
   const [lightS1, setLightS1] = useState(0);
+  const [slots, setslots] = useState('');
   const lightsOn = () => {
     MQTT.createClient({
       uri: 'mqtt://192.168.199.215:1883',
@@ -128,10 +129,19 @@ export default function ParkingManagement() {
                 </View>
               </View>
               <View style={styles.card}>
-                <Text>Parking Slots</Text>
-                <View>
-                  <Text>Slot 1 Status:{distanceSensorSlot1}</Text>
-                  <Text>Slot 2 Status:{distanceSensorSlot2}</Text>
+                <Text style={styles.pageMainTitle}>Parking Slots</Text>
+                <View style={styles.parkingContainer}>
+                  {slots < 3 ? (
+                    <>
+                      <Text style={styles.parkingText}>{slots}/3</Text>
+                      <Text style={styles.parkingText}>Parking Available</Text>
+                    </>
+                  ) : (
+                    <>
+                      <Text style={styles.parkingText}>{slots}/3</Text>
+                      <Text style={styles.parkingText}>Parking Full</Text>
+                    </>
+                  )}
                 </View>
               </View>
             </View>
@@ -239,5 +249,14 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     alignItems: 'center',
+  },
+  parkingContainer: {
+    top: 30,
+  },
+  parkingText: {
+    color: 'black',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 20,
   },
 });
