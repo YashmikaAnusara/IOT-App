@@ -22,7 +22,7 @@ export default function ParkingManagement() {
   const [lightS1, setLightS1] = useState(0);
   const lightsOn = () => {
     MQTT.createClient({
-      uri: 'mqtt://192.168.234.215:1883',
+      uri: 'mqtt://192.168.199.215:1883',
       clientId: 'your_client_id',
     })
       .then(function (client) {
@@ -62,7 +62,7 @@ export default function ParkingManagement() {
   };
   useEffect(() => {
     MQTT.createClient({
-      uri: 'mqtt://192.168.234.215:1883',
+      uri: 'mqtt://192.168.199.215:1883',
       clientId: 'your_client_id_1',
     })
       .then(function (client1) {
@@ -113,7 +113,7 @@ export default function ParkingManagement() {
               <View style={styles.card}>
                 <View>
                   <Text style={styles.pageMainTitle}>Current Humidity</Text>
-                  {humidity > 60 ? (
+                  {humidity > 90 ? (
                     <ImageBackground
                       source={hmdity_W}
                       style={styles.cardParkImages}
