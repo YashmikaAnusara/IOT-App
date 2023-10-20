@@ -25,7 +25,7 @@ export default function MotionLightDetection() {
 
   useEffect(() => {
     MQTT.createClient({
-      uri: 'mqtt://192.168.1.3:1883',
+      uri: 'mqtt://192.168.198.16:1883',
       clientId: 'your_client_id_1',
     })
       .then(function (client1) {
@@ -35,8 +35,7 @@ export default function MotionLightDetection() {
 
           client1.subscribe('Models/Detection/Type', 0);
           client1.subscribe('Models/Detection/Sensor', 0);
-          client1.subscribe('Models/Detection/Green_LED', 0);
-          client1.subscribe('Models/Detection/Yellow_LED', 0);
+          client1.subscribe('Models/Detection/Lights', 0);
         });
         client1.on('message', function (msg) {
           if (msg.topic == 'Models/Detection/Type') {
@@ -45,10 +44,7 @@ export default function MotionLightDetection() {
           if (msg.topic == 'Models/Detection/Sensor') {
             setSensor(msg.data);
           }
-          if (msg.topic == 'Models/Detection/Green_LED') {
-            setLights(msg.data);
-          }
-          if (msg.topic == 'Models/Detection/Yellow_LED') {
+          if (msg.topic == 'Models/Detection/Lights') {
             setLights(msg.data);
           }
         });
