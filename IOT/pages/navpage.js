@@ -5,6 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MotionLightDetection from './navpages/MotionLightDetection';
 import ParkingManagement from './navpages/ParkingManagement';
 import FireDetectionNotification from './navpages/FireDetection&Notification';
+import ParkingNavigation from './navpages/ParkingNavigation';
 
 const Tab = createBottomTabNavigator();
 
@@ -128,8 +129,8 @@ export default function NavPage() {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={MotionLightDetection}
+        name="ParkingNavigation"
+        component={ParkingNavigation}
         options={{
           headerShown: false,
           tabBarIcon: ({focused}) => (
@@ -155,7 +156,7 @@ export default function NavPage() {
                   color: focused ? '#5DB075' : '#3C3C43',
                   fontWeight: focused ? 'bold' : 'normal',
                 }}>
-                IDK
+                Parking Navigation
               </Text>
             </View>
           ),
