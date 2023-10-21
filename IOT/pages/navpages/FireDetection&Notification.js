@@ -19,14 +19,12 @@ export default function FireDetectionNotification() {
   const [Flame, setFlame] = useState('');
   const [Gas, setGas] = useState('');
   const [Temperature, setTemperature] = useState('');
-  const [Alarm, setAlarm] = useState('Alarm Deactivated!');
-  const [Slot_Notification, setSlot_Notification] = useState(
-    'P1 & P2 & P3 Warning.',
-  );
+  const [Alarm, setAlarm] = useState('');
+  const [Slot_Notification, setSlot_Notification] = useState('');
 
   useEffect(() => {
     MQTT.createClient({
-      uri: 'mqtt://192.168.1.3:1883',
+      uri: 'mqtt://192.168.47.182:1883',
       clientId: 'your_client_id_1',
     })
       .then(function (client1) {
@@ -35,25 +33,25 @@ export default function FireDetectionNotification() {
           console.log('connected');
 
           client1.subscribe('Sensor/Detection/Flame', 0);
-          client1.subscribe('Models/Detection/Gas', 0);
-          client1.subscribe('Models/Detection/Temperature', 0);
-          client1.subscribe('Models/Detection/Alarm', 0);
-          client1.subscribe('Models/Detection/Slot Notification', 0);
+          client1.subscribe('Sensor/Detection/Gas', 0);
+          client1.subscribe('Sensor/Detection/Temperature', 0);
+          client1.subscribe('Sensor/Detection/Alarm', 0);
+          client1.subscribe('Sensor/Detection/Slot Notification', 0);
         });
         client1.on('message', function (msg) {
           if (msg.topic == 'Sensor/Detection/Flame') {
             setFlame(msg.data);
           }
-          if (msg.topic == 'Models/Detection/Gas') {
+          if (msg.topic == 'Sensor/Detection/Gas') {
             setGas(msg.data);
           }
-          if (msg.topic == 'Models/Detection/Temperature') {
+          if (msg.topic == 'Sensor/Detection/Temperature') {
             setTemperature(msg.data);
           }
-          if (msg.topic == 'Models/Detection/Alarm') {
+          if (msg.topic == 'Sensor/Detection/Alarm') {
             setAlarm(msg.data);
           }
-          if (msg.topic == 'Models/Detection/Slot Notification') {
+          if (msg.topic == 'Sensor/Detection/Slot Notification') {
             setSlot_Notification(msg.data);
             setAlert();
           }
