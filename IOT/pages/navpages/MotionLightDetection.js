@@ -25,7 +25,7 @@ export default function MotionLightDetection() {
 
   useEffect(() => {
     MQTT.createClient({
-      uri: 'mqtt://192.168.198.16:1883',
+      uri: 'mqtt://192.168.166.16:1883',
       clientId: 'your_client_id_1',
     })
       .then(function (client1) {
