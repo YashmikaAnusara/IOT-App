@@ -7,26 +7,28 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
+
 import React, {useState, useEffect} from 'react';
 import MQTT from 'sp-react-native-mqtt';
 import Header from '../../component/header';
 const Heat = require('../../assets/heat.png');
 const Cool = require('../../assets/cool.png');
-const Alarm_off = require('../../assets/Alarm_off.png');
 const Alarm_on = require('../../assets/Alarm.png');
+const Alarm_off = require('../../assets/Alarm_off.png');
+const Fire = require('../../assets/fire.png');
+const None = require('../../assets/none.png');
+const Gas_on = require('../../assets/gas.png');
 
 export default function FireDetectionNotification() {
-  const [Flame, setFlame] = useState('');
+  const [Flame, setFlame] = useState('5');
   const [Gas, setGas] = useState('');
   const [Temperature, setTemperature] = useState('');
-  const [Alarm, setAlarm] = useState('Alarm Deactivated!');
-  const [Slot_Notification, setSlot_Notification] = useState(
-    'P1 & P2 & P3 Warning.',
-  );
+  const [Alarm, setAlarm] = useState('');
+  const [Slot_Notification, setSlot_Notification] = useState('');
 
   useEffect(() => {
     MQTT.createClient({
-      uri: 'mqtt://192.168.1.3:1883',
+      uri: 'mqtt://192.168.43.208:1883',
       clientId: 'your_client_id_1',
     })
       .then(function (client1) {
@@ -35,27 +37,26 @@ export default function FireDetectionNotification() {
           console.log('connected');
 
           client1.subscribe('Sensor/Detection/Flame', 0);
-          client1.subscribe('Models/Detection/Gas', 0);
-          client1.subscribe('Models/Detection/Temperature', 0);
-          client1.subscribe('Models/Detection/Alarm', 0);
-          client1.subscribe('Models/Detection/Slot Notification', 0);
+          client1.subscribe('Sensor/Detection/Gas', 0);
+          client1.subscribe('Sensor/Detection/Temperature', 0);
+          client1.subscribe('Sensor/Detection/Alarm', 0);
+          client1.subscribe('Sensor/Detection/Slot_Notification', 0);
         });
         client1.on('message', function (msg) {
-          if (msg.topic == 'Sensor/Detection/Flame') {
+          if (msg.topic === 'Sensor/Detection/Flame') {
             setFlame(msg.data);
           }
-          if (msg.topic == 'Models/Detection/Gas') {
+          if (msg.topic === 'Sensor/Detection/Gas') {
             setGas(msg.data);
           }
-          if (msg.topic == 'Models/Detection/Temperature') {
+          if (msg.topic === 'Sensor/Detection/Temperature') {
             setTemperature(msg.data);
           }
-          if (msg.topic == 'Models/Detection/Alarm') {
+          if (msg.topic === 'Sensor/Detection/Alarm') {
             setAlarm(msg.data);
           }
-          if (msg.topic == 'Models/Detection/Slot Notification') {
+          if (msg.topic === 'Sensor/Detection/Slot_Notification') {
             setSlot_Notification(msg.data);
-            setAlert();
           }
         });
 
@@ -76,8 +77,7 @@ export default function FireDetectionNotification() {
               <TouchableOpacity style={styles.card}>
                 <View>
                   <Text style={styles.cardTitle}>Temperature</Text>
-
-                  {Temperature <= 25 ? (
+                  {Temperature <= 60 ? (
                     <>
                       <ImageBackground
                         source={Cool}
@@ -85,7 +85,7 @@ export default function FireDetectionNotification() {
                       />
                       <Text style={styles.cardSecondTitle}>{Temperature}</Text>
                     </>
-                  ) : Temperature > 26 ? (
+                  ) : Temperature > 61 ? (
                     <>
                       <ImageBackground
                         source={Heat}
@@ -97,25 +97,71 @@ export default function FireDetectionNotification() {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity style={styles.card}>
+              <View>
+                <Text style={styles.cardTitle}>Alarm</Text>
+                {Alarm === 'Alarm Activated!' ? (
+                  <>
+                    <ImageBackground
+                      source={Alarm_on}
+                      style={styles.cardImageFireDetection}
+                    />
+                    <Text style={styles.cardSecondTitle}>Alarm Activated</Text>
+                  </>
+                ) : Alarm === 'Alarm Deactivated.' ? (
+                  <>
+                    <ImageBackground
+                      source={Alarm_off}
+                      style={styles.cardImageFireDetection}
+                    />
+                    <Text style={styles.cardSecondTitle}>Alarm Deactivated</Text>
+                  </>
+                ) : null}
+              </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.firstBottomContainer}>
+              <TouchableOpacity style={styles.card}>
                 <View>
-                  <Text style={styles.cardTitle}>Alarm</Text>
-                  {Alarm === 'Alarm Activated!' ? (
+                  <Text style={styles.cardTitle}>Flame</Text>
+                  {Flame == 1 ? (
                     <>
                       <ImageBackground
-                        source={Alarm_on}
+                        source={Fire}
                         style={styles.cardImageSensor}
                       />
-                      <Text style={styles.cardSecondTitle}>{Alarm}</Text>
+                      <Text style={styles.cardSecondTitle}>Flame Detected</Text>
                     </>
-                  ) : Alarm === 'Alarm Deactivated!' ? (
+                  )  : (
                     <>
                       <ImageBackground
-                        source={Alarm_off}
+                        source={None}
                         style={styles.cardImageSensor}
                       />
-                      <Text style={styles.cardSecondTitle}>{Alarm}</Text>
+                      <Text style={styles.cardSecondTitle}>Flame not Detected</Text>
                     </>
-                  ) : null}
+                  )}
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.card}>
+                <View>
+                  <Text style={styles.cardTitle}>Gas</Text>
+                  {Gas == 1 ? (
+                    <>
+                      <ImageBackground
+                        source={Gas_on}
+                        style={styles.cardImageSensor}
+                      />
+                      <Text style={styles.cardSecondTitle}>Gas Detected</Text>
+                    </>
+                  ) : (
+                    <>
+                      <ImageBackground
+                        source={None}
+                        style={styles.cardImageSensor}
+                      />
+                      <Text style={styles.cardSecondTitle}>Gas not Detected</Text>
+                    </>
+                  ) }
                 </View>
               </TouchableOpacity>
             </View>
@@ -133,7 +179,7 @@ export default function FireDetectionNotification() {
                     </View>
                   </TouchableOpacity>
                 </>
-              ) : Alarm === 'Alarm Deactivated!' ? (
+              ) : Alarm === 'Alarm Deactivated.' ? (
                 <>
                   <TouchableOpacity style={styles.BottomCard_no_Alert}>
                     <View>
@@ -217,6 +263,12 @@ const styles = StyleSheet.create({
     top: 3,
     height: 120,
     width: 60,
+    alignSelf: 'center',
+  },
+  cardImageFireDetection: {
+    top: 3,
+    height: 120,
+    width: 100,
     alignSelf: 'center',
   },
   cardImageSensor: {
