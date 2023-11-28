@@ -23,7 +23,7 @@ export default function ParkingManagement() {
   const [slots, setslots] = useState('');
   const lightsOn = () => {
     MQTT.createClient({
-      uri: 'mqtt://192.168.199.215:1883',
+      uri: 'mqtt://192.168.166.215:1883',
       clientId: 'your_client_id',
     })
       .then(function (client) {
@@ -43,7 +43,7 @@ export default function ParkingManagement() {
   };
   const lightsOff = () => {
     MQTT.createClient({
-      uri: 'mqtt://192.168.234.215:1883',
+      uri: 'mqtt://192.168.166.215:1883',
       clientId: 'your_client_id',
     })
       .then(function (client) {
@@ -63,7 +63,7 @@ export default function ParkingManagement() {
   };
   useEffect(() => {
     MQTT.createClient({
-      uri: 'mqtt://192.168.199.215:1883',
+      uri: 'mqtt://192.168.166.215:1883',
       clientId: 'your_client_id_1',
     })
       .then(function (client1) {
@@ -71,21 +71,16 @@ export default function ParkingManagement() {
         client1.on('connect', function () {
           console.log('connected');
 
-          client1.subscribe('parking/slot_1', 0);
-          client1.subscribe('parking/slot_2', 0);
+          client1.subscribe('Parking/parkedTotal', 0);
           client1.subscribe('parking/humidity', 0);
           client1.subscribe('Parking/lightSlot1', 0);
           // client1.subscribe('Models/Detection/Sensor', 0);
           // client1.subscribe('Models/Detection/Green_LED', 0);
         });
         client1.on('message', function (msg) {
-          if (msg.topic == 'parking/slot_1') {
-            console.log(msg.data);
-            setSensorDistanceS1(msg.data);
-          }
-          if (msg.topic == 'parking/slot_2') {
-            console.log(msg.data);
-            setSensorDistanceS2(msg.data);
+          if (msg.topic == 'Parking/parkedTotal') {
+            console.log("parking total",msg.data);
+            setslots(msg.data);
           }
           if (msg.topic == 'parking/humidity') {
             console.log(msg.data);
@@ -133,7 +128,7 @@ export default function ParkingManagement() {
                 <View style={styles.parkingContainer}>
                   {slots < 3 ? (
                     <>
-                      <Text style={styles.parkingText}>{slots}/3</Text>
+                      <Text style={styles.parkingText}>{slots}/2</Text>
                       <Text style={styles.parkingText}>Parking Available</Text>
                     </>
                   ) : (
