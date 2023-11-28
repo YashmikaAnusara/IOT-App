@@ -22,7 +22,7 @@ export default function ParkingNavigation() {
 
   useEffect(() => {
     MQTT.createClient({
-      uri: 'mqtt://192.168.1.3:1883',
+      uri: 'mqtt://192.168.166.215:1883',
       clientId: 'your_client_id_1',
     })
       .then(function (client1) {
@@ -66,7 +66,7 @@ export default function ParkingNavigation() {
           <Header />
           <View style={styles.bottomContainer}>
             <View style={styles.firstBottomContainer}>
-              {ParkingSlot1 === 'on' ? (
+              {ParkingSlot1 === 'Parked' ? (
                 <TouchableOpacity style={styles.card} onPress={Direction_1}>
                   <View>
                     <Text style={styles.cardTitle}>Parking Slot 1</Text>
@@ -78,7 +78,7 @@ export default function ParkingNavigation() {
                     <Text style={styles.cardSecondTitle}>{ParkingSlot1}</Text>
                   </View>
                 </TouchableOpacity>
-              ) : ParkingSlot1 === 'off' ? (
+              ) : ParkingSlot1 === 'Empty' ? (
                 <TouchableOpacity style={styles.card}>
                   <View>
                     <Text style={styles.cardTitle}>Parking Slot 1</Text>
@@ -91,7 +91,7 @@ export default function ParkingNavigation() {
                 </TouchableOpacity>
               ) : null}
 
-              {ParkingSlot2 === 'on' ? (
+              {ParkingSlot2 === 'Parked' ? (
                 <TouchableOpacity style={styles.card} onPress={Direction_2}>
                   <View>
                     <Text style={styles.cardTitle}>Parking Slot 2</Text>
@@ -102,7 +102,7 @@ export default function ParkingNavigation() {
                     <Text style={styles.cardSecondTitle}>{ParkingSlot2}</Text>
                   </View>
                 </TouchableOpacity>
-              ) : ParkingSlot2 === 'off' ? (
+              ) : ParkingSlot2 === 'Empty' ? (
                 <TouchableOpacity style={styles.card}>
                   <Text style={styles.cardTitle}>Parking Slot 2</Text>
                   <View>
@@ -123,7 +123,12 @@ export default function ParkingNavigation() {
                       Parking Slot 1 Direction
                     </Text>
                     <View style={styles.lightCardContainer}>
-                      <Text style={styles.paddingDirection}>sdsdssdsw</Text>
+                      <Text style={styles.paddingDirection}>
+                        <Text>
+                          Pass the entrance , 
+                          turn right.
+                        </Text>
+                      </Text>
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -131,10 +136,13 @@ export default function ParkingNavigation() {
                 <TouchableOpacity style={styles.BottomCard}>
                   <View>
                     <Text style={styles.cardTitle}>
-                      Parking Slot 2 Direction
+                    Parking Slot 2 Direction
                     </Text>
                     <View style={styles.lightCardContainer}>
-                      <Text style={styles.paddingDirection}>sdsdssdsw</Text>
+                      <Text style={styles.paddingDirection}>
+                      Pass the entrance 1 slot, 
+                          turn right.
+                      </Text>
                     </View>
                   </View>
                 </TouchableOpacity>
